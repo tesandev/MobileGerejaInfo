@@ -1,6 +1,7 @@
 package com.tesan.gerejayohanes.api
 
 import com.tesan.gerejayohanes.login.ResponseLogin
+import com.tesan.gerejayohanes.model.ResponseJadwalKegiatan
 import com.tesan.gerejayohanes.model.ResponsePengumuman
 import com.tesan.gerejayohanes.model.ResponseTataibadah
 import com.tesan.gerejayohanes.register.ResponseRegister
@@ -28,6 +29,9 @@ interface ApiService {
 
     @GET("listtataibadah")
     fun listtataibadah(): Call<ArrayList<ResponseTataibadah>>
+
+    @GET("listjadwalkegiatan")
+    fun listjadwalkegiatan(): Call<ArrayList<ResponseJadwalKegiatan>>
 
     @GET("tataibadahdetail/{id}")
     fun tataibadahdetail(
