@@ -66,7 +66,7 @@ class LoginActivity : AppCompatActivity() {
                     Toast.makeText(applicationContext,res.message,Toast.LENGTH_SHORT).show()
                     startActivity(Intent(this@LoginActivity,HomeActivity::class.java))
                     finish()
-                    Log.e("sp", sharePref.getString(Constant.PREF_ID_USER).toString()+"," +
+                    Log.e("login", sharePref.getString(Constant.PREF_ID_USER).toString()+"," +
                             sharePref.getString(Constant.PREF_NAMA).toString()+", "+
                             sharePref.getString(Constant.PREF_EMAIL).toString())
                     loading.hide()

@@ -12,6 +12,7 @@
         android:padding="30dp">
 
         <com.google.android.material.card.MaterialCardView
+            android:id="@+id/headRenungan"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:strokeColor="@color/cardview_light_background"
@@ -37,6 +38,15 @@
 
 
         </com.google.android.material.card.MaterialCardView>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:layout_below="@+id/headRenungan"
+            android:layout_marginTop="20dp"
+            android:id="@+id/rvRenungan"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            tools:listitem="@layout/itm_renungan"
+            />
 
     </RelativeLayout>
 
