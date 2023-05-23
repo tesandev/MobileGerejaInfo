@@ -17,6 +17,7 @@ import com.tesan.gerejayohanes.api.ApiConfig
 import com.tesan.gerejayohanes.databinding.FragmentSettingBinding
 import com.tesan.gerejayohanes.helper.Constant
 import com.tesan.gerejayohanes.helper.SharedPref
+import com.tesan.gerejayohanes.model.ResponseDetailProfile
 import com.tesan.gerejayohanes.register.ResponseRegister
 import retrofit2.Call
 import retrofit2.Callback
@@ -25,6 +26,9 @@ import retrofit2.Response
 class SettingFragment:Fragment() {
     private lateinit var binding: FragmentSettingBinding
     private lateinit var sharePref: SharedPref
+
+    private var nama:String? = null
+    private var email:String? = null
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -34,16 +38,39 @@ class SettingFragment:Fragment() {
         sharePref = context?.let { SharedPref(it) }!!
 
         val idUsr = sharePref.getString(Constant.PREF_ID_USER)
-        val nama = sharePref.getString(Constant.PREF_NAMA)
-        val email = sharePref.getString(Constant.PREF_EMAIL)
+
+        val loading = ProgressDialog(context)
+        loading.setMessage("Loading...")
+        loading.setCancelable(false)
+        loading.show()
+
+        ApiConfig.instance.usermobileDetail(idUsr.toString()).enqueue(object :Callback<ResponseDetailProfile>{
+            override fun onResponse(
+                call: Call<ResponseDetailProfile>,
+                response: Response<ResponseDetailProfile>
+            ) {
+                val rs = response.body()!!
+                binding.profilname.text = rs.name
+                binding.profilemail.text = rs.email
+                binding.edtNamaProfile.editText?.setText(rs.name)
+                binding.edtEmailProfile.editText?.setText(rs.email)
+                nama = rs.name
+                email = rs.email
+                loading.hide()
+            }
+
+            override fun onFailure(call: Call<ResponseDetailProfile>, t: Throwable) {
+                loading.hide()
+                Log.e("ERR",t.message.toString())
+                Toast.makeText(context,t.message, Toast.LENGTH_SHORT).show()
+            }
+
+        })
+
         val passwordlama = binding.edtPasswordLama.editText?.text
         val passwordbaru = binding.edtPasswordNewProfile.editText?.text
 
-        binding.profilname.text = nama
-        binding.profilemail.text = email
-
-        binding.edtNamaProfile.editText?.setText(nama)
-        binding.edtEmailProfile.editText?.setText(email)
+        //Log.e("profile",idUsr+", "+nama+", "+email+", "+passwordlama+", "+passwordbaru)
 
         binding.btnUpdateProfile.setOnClickListener {
             updateProfile(idUsr.toString(),nama.toString(),email.toString(),passwordlama.toString(),passwordbaru.toString())

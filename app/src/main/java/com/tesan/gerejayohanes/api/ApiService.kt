@@ -32,6 +32,11 @@ interface ApiService {
         @Field("passwordnew") passwordnew: String
     ): Call<ResponseRegister>
 
+    @GET("usermobileDetail/{id}")
+    fun usermobileDetail(
+        @Path("id") id:String
+    ):Call<ResponseDetailProfile>
+
     //pengumuman
     @GET("listpengumuman")
     fun listpengumuman(): Call<ArrayList<ResponsePengumuman>>

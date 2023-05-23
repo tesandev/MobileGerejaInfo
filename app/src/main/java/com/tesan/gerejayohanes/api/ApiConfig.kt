@@ -8,9 +8,9 @@ import retrofit2.converter.gson.GsonConverterFactory
 import java.util.concurrent.TimeUnit
 
 object ApiConfig {
-    private const val hosting = "https://apibenksampah.000webhostapp.com/api/"
-    private const val localhost = "http://10.0.2.2:8000/api/"
 
+    private const val localhost = "http://10.0.2.2:8000/api/"
+    private const val url = "http://10.0.2.2:8000/api/"
     private const val BASE_URL = localhost
 
     private val client: Retrofit
@@ -36,4 +36,5 @@ object ApiConfig {
     }
 
     val instance: ApiService get() = client.create(ApiService::class.java)
+    val mediaUrl = url
 }
