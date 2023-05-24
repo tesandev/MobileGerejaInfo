@@ -2,6 +2,7 @@ package com.tesan.gerejayohanes.fragment
 
 import android.app.ProgressDialog
 import android.os.Bundle
+import android.text.Html
 import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -9,21 +10,21 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.core.text.HtmlCompat
+import com.bumptech.glide.Glide
 import com.tesan.gerejayohanes.R
 import com.tesan.gerejayohanes.api.ApiConfig
-import com.tesan.gerejayohanes.databinding.FragmentDetailTataibadahBinding
-import com.tesan.gerejayohanes.model.ResponseTataibadah
+import com.tesan.gerejayohanes.databinding.FragmentDetailBacaanBinding
+import com.tesan.gerejayohanes.model.ResponseBacaan
+import kotlinx.android.synthetic.main.itm_bacaan.view.imgBacaan
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
 private const val ARG_PARAM1 = "param1"
 private const val ARG_PARAM2 = "param2"
 
-class DetailTataibadahFragment : Fragment() {
-    private lateinit var binding: FragmentDetailTataibadahBinding
+class DetailBacaanFragment : Fragment() {
+    private lateinit var binding: FragmentDetailBacaanBinding
 
     private var param1: String? = null
     private var param2: String? = null
@@ -33,38 +34,41 @@ class DetailTataibadahFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        binding = FragmentDetailTataibadahBinding.inflate(inflater, container, false)
-
+        binding =  FragmentDetailBacaanBinding.inflate(inflater, container, false)
         val args = arguments
-        var tataibadahId:String? = null
+        var bacaanId:String? = null
         if (args != null) {
-            tataibadahId = args.getString("tataibadah_id").toString()
+            bacaanId = args.getString("bacaan_id").toString()
+            loaddetail(bacaanId)
         }
-
-        Log.e("tbId",tataibadahId.toString())
-        loaddetailTataIbadah(tataibadahId.toString())
         return binding.root
     }
 
-    private fun loaddetailTataIbadah(tbId:String) {
+    private fun loaddetail(bacaanId:String) {
         val loading = ProgressDialog(context)
         loading.setMessage("Loading...")
         loading.setCancelable(false)
         loading.show()
 
-        ApiConfig.instance.tataibadahdetail(tbId).enqueue(object : Callback<ResponseTataibadah>{
+        ApiConfig.instance.bacaandetail(bacaanId).enqueue(object : Callback<ResponseBacaan>{
             override fun onResponse(
-                call: Call<ResponseTataibadah>,
-                response: Response<ResponseTataibadah>
+                call: Call<ResponseBacaan>,
+                response: Response<ResponseBacaan>
             ) {
                 val rs = response.body()!!
-                binding.titleDetailtataibadah.text = rs.namaibadah
-                val htmlContent = rs.contentbody
-                binding.bodyDetailtataibadah.text = HtmlCompat.fromHtml(htmlContent.toString(),HtmlCompat.FROM_HTML_MODE_COMPACT)
+                binding.detailJdlBacaan.text = rs.title
+                context?.let {
+                    Glide.with(it)
+                        .load(ApiConfig.mediaUrl+rs.featuredImage)
+                        .placeholder(R.drawable.noimage)
+                        .into(binding.imgBacaanDetail)
+                }
+                val contentOut = rs.content
+                binding.contentBacaan.text = HtmlCompat.fromHtml(contentOut.toString(), HtmlCompat.FROM_HTML_MODE_COMPACT)
                 loading.hide()
             }
 
-            override fun onFailure(call: Call<ResponseTataibadah>, t: Throwable) {
+            override fun onFailure(call: Call<ResponseBacaan>, t: Throwable) {
                 loading.hide()
                 Log.e("ERR",t.message.toString())
                 Toast.makeText(context,t.message, Toast.LENGTH_SHORT).show()
@@ -77,7 +81,7 @@ class DetailTataibadahFragment : Fragment() {
         // TODO: Rename and change types and number of parameters
         @JvmStatic
         fun newInstance(param1: String, param2: String) =
-            DetailTataibadahFragment().apply {
+            DetailBacaanFragment().apply {
                 arguments = Bundle().apply {
                     putString(ARG_PARAM1, param1)
                     putString(ARG_PARAM2, param2)

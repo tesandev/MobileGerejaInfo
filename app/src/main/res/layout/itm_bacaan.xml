@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/cardItemBacaan"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="10dp"
+    app:cardElevation="10dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <!-- Media -->
+        <ImageView
+            android:id="@+id/imgBacaan"
+            android:layout_width="match_parent"
+            android:layout_height="180dp"
+            android:src="@drawable/noimage"
+            android:scaleType="centerCrop"
+            android:contentDescription="imagebacaan"
+            />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="18dp">
+
+            <!-- Title, secondary and supporting text -->
+            <TextView
+                android:id="@+id/jdlBacaan"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Judul Bacaan"
+                android:textStyle="bold"
+                android:textColor="@color/purple_200"
+                android:textSize="18dp"
+                />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</com.google.android.material.card.MaterialCardView>

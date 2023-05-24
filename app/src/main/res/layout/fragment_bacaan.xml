@@ -9,9 +9,13 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:padding="30dp">
+        android:paddingTop="30dp"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"
+        android:paddingBottom="0dp">
 
         <com.google.android.material.card.MaterialCardView
+            android:id="@+id/headBacaan"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:strokeColor="@color/cardview_light_background"
@@ -37,6 +41,14 @@
 
 
         </com.google.android.material.card.MaterialCardView>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rvBacaan"
+            android:layout_marginTop="10dp"
+            android:layout_below="@+id/headBacaan"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            tools:listitem="@layout/itm_bacaan"/>
 
     </RelativeLayout>
 

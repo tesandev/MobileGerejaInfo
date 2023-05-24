@@ -1,7 +1,6 @@
 package com.tesan.gerejayohanes.adapter
 
 import android.text.Html
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
@@ -10,10 +9,8 @@ import com.tesan.gerejayohanes.model.ResponsePetugas
 import kotlinx.android.synthetic.main.itm_petugas.view.bodyPetugas
 import kotlinx.android.synthetic.main.itm_petugas.view.cardItemPetugas
 import kotlinx.android.synthetic.main.itm_petugas.view.jdlPetugas
-import java.text.SimpleDateFormat
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
-import java.util.Date
 
 
 class AdapterPetugas(val list: ArrayList<ResponsePetugas>):RecyclerView.Adapter<AdapterPetugas.ViewHolder>() {

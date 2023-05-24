@@ -10,7 +10,7 @@ import java.util.concurrent.TimeUnit
 object ApiConfig {
 
     private const val localhost = "http://10.0.2.2:8000/api/"
-    private const val url = "http://10.0.2.2:8000/api/"
+    private const val url = "http://10.0.2.2:8000/"
     private const val BASE_URL = localhost
 
     private val client: Retrofit
